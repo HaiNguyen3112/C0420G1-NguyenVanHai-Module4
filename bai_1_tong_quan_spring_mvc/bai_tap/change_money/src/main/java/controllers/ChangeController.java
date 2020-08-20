@@ -27,4 +27,9 @@ public class ChangeController {
         model.addAttribute("vnd", vnd);
         return "calculator";
     }
+
+    @GetMapping("/show")
+    public String showList(){
+        return "show";
+    }
 }

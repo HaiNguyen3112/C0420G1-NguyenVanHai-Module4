@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
+<form action="/calculator">
     <table>
         <tr>
             <td>USD: </td>
