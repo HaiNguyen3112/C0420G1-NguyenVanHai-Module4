@@ -5,18 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<div class="notify">
-    <div th:if="${success}">
-        <span th:text="${success}"></span>
-    </div>
-</div>
+
 <h3>Customers</h3>
 <p>
     <a th:href="@{/customer/create}">
         Add new customer
     </a>
 </p>
-
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
 <table id = "customers">
     <thead>
     <tr>
