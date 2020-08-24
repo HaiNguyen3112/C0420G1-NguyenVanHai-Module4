@@ -32,5 +32,6 @@
         </tr>
     </c:forEach>
 </table>
+<a href="/create"><input type="button" value="Back"></a>
 </body>
 </html>

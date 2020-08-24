@@ -17,8 +17,9 @@
 <form:form action="/addEmail" method="post" modelAttribute="email">
     <table>
         <tr>
+            <td>ID</td>
             <td>
-                <form:hidden path="id"/>
+                <form:input path="id"/>
             </td>
         </tr>
         <tr>

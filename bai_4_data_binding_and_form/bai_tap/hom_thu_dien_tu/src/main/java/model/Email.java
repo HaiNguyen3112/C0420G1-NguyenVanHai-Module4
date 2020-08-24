@@ -1,17 +1,19 @@
 package model;
 
 public class Email {
-    private int id =1;
+//    private static int tempId =0;
+    private int id;
     private String language;
     private int pageSize;
     private boolean spamsFilter;
     private String signature;
 
     public Email() {
+//        tempId ++;
     }
 
     public Email(int id, String language, int pageSize, boolean spamsFilter, String signature) {
-        this.id = id+1;
+        this.id = id;
         this.language = language;
         this.pageSize = pageSize;
         this.spamsFilter = spamsFilter;
