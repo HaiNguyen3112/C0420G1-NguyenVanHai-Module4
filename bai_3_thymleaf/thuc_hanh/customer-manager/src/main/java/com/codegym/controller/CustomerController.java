@@ -52,16 +52,18 @@ public class CustomerController {
 
     @GetMapping("/customer/{id}/delete")
     public String deleteForm(@PathVariable int id, Model model){
-       model.addAttribute("customer", customerService.findById(id));
-       return "delete";
+//       model.addAttribute("customer", customerService.findById(id));
+        customerService.remove(id);
+        return "redirect: /";
+//       return "delete";
     }
 
-    @PostMapping("/customer/delete")
-    public String delete(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes){
-        customerService.remove(customer.getId());
-        redirectAttributes.addFlashAttribute("success","Saved Customer Successfully");
-        return "redirect: /";
-    }
+//    @PostMapping("/customer/delete")
+//    public String delete(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes){
+//        customerService.remove(customer.getId());
+//        redirectAttributes.addFlashAttribute("success","Saved Customer Successfully");
+//        return "redirect: /";
+//    }
 
     @GetMapping("/customer/{id}/view")
     public String view(@PathVariable int id, Model model){
