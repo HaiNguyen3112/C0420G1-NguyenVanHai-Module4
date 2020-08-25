@@ -1,8 +1,8 @@
 package com.codegym.controller;
 
-import com.codegym.Repository.ProductRepository;
-import com.codegym.Repository.ProductRepositoryImpl;
 import com.codegym.model.Product;
+import com.codegym.service.ProductService;
+import com.codegym.service.ProductServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +14,11 @@ import java.util.List;
 
 @Controller
 public class ProductController {
-    private ProductRepository productRepository = new ProductRepositoryImpl();
+    private ProductService productService = new ProductServiceImpl();
 
     @GetMapping("/")
     public String list(Model model){
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productService.findAll();
         model.addAttribute("products",products);
         return "list";
     }
@@ -29,29 +29,29 @@ public class ProductController {
     }
     @PostMapping("/product/save")
     public String save(@ModelAttribute Product product){
-        product.setId(productRepository.size()+1);
-        productRepository.save(product);
+        product.setId(productService.size()+1);
+        productService.save(product);
         return "redirect:/";
     }
     @GetMapping("/product/{id}/edit")
     public String editForm(@PathVariable int id, Model model){
-        model.addAttribute("product",productRepository.findById(id));
+        model.addAttribute("product",productService.findById(id));
         return "edit";
     }
 
     @PostMapping("product/update")
     public String update(@ModelAttribute Product product){
-        productRepository.update(product.getId(),product);
+        productService.update(product.getId(),product);
         return "redirect: /";
     }
     @GetMapping("/product/{id}/delete")
     public String delete(@PathVariable int id){
-        productRepository.remove(id);
+        productService.remove(id);
         return "redirect: /";
     }
     @GetMapping("/product/{id}/view")
     public String view(@PathVariable int id, Model model){
-        model.addAttribute("product",productRepository.findById(id));
+        model.addAttribute("product",productService.findById(id));
         return "view";
     }
 
