@@ -13,8 +13,8 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <tr th:each="blog : ${blogList}">
-        <td th:text="${blog.id}"></td>
+    <tr th:each="blog, blogStart : ${blogList}">
+        <td th:text="${blogStart.count}"></td>
 
         <td><a th:href="@{/blog/view/{id}(id=${blog.id})}" th:text="${blog.title}"></a></td>
 
