@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CommentController {
@@ -29,13 +30,18 @@ public class CommentController {
     }
 
     @PostMapping("/home/like/{id}")
-    public String updateLike(@PathVariable Long id, Model model){
+    public String updateLike(@PathVariable Long id, Model model, RedirectAttributes redirect){
         Comment comment = commentService.findById(id);
-        comment.setTotalLike(comment.getTotalLike()+1);
-        commentService.save(comment);
+        if (comment != null){
+            comment.setTotalLike(comment.getTotalLike()+1);
+            commentService.save(comment);
 
-        model.addAttribute("comment", new Comment());
-        model.addAttribute("commentList", commentService.findAll());
+            model.addAttribute("comment", new Comment());
+            model.addAttribute("commentList", commentService.findAll());
+        } else {
+            redirect.addFlashAttribute("message","Comment not found or deleted!!!");
+        }
+
         return "redirect:/home";
     }
 }

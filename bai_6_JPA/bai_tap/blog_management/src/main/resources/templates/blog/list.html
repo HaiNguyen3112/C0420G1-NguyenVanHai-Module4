@@ -6,6 +6,15 @@
 </head>
 <body>
 <a th:href="@{/blog/create}">Create new Blog</a>
+
+<form th:action="@{/blog/search}" >
+    <input type="search" name="title" placeholder="Enter Title">
+    <input type="submit" value="Search">
+</form>
+
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
 <table>
     <tr>
         <th>STT</th>
@@ -20,6 +29,7 @@
 
         <td><a th:href="@{/blog/edit/{id}(id=${blog.id})}">Edit</a></td>
         <td><a th:href="@{/blog/delete/{id}(id=${blog.id})}">Delete</a></td>
+        <td><a th:href="@{blog/edit/15}">Test</a></td>
     </tr>
 </table>
 </body>

@@ -32,4 +32,14 @@ public class BlogServiceImpl implements BlogService {
     public void remove(Long id) {
         blogRepository.deleteById(id);
     }
+
+    @Override
+    public List<Blog> findAllByTitleContaining(String title) {
+        return blogRepository.findAllByTitleContaining(title);
+    }
+
+    @Override
+    public List<Blog> findAllByTitleContainingOrderByTitleAsc(String title) {
+        return blogRepository.findAllByTitleContainingOrderByTitleAsc(title);
+    }
 }

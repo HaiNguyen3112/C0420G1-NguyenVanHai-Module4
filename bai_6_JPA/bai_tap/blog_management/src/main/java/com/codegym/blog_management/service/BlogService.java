@@ -9,4 +9,6 @@ public interface BlogService  {
     Blog findById (Long id);
     void save(Blog blog);
     void remove(Long id);
+    List<Blog> findAllByTitleContaining(String title);
+    List<Blog> findAllByTitleContainingOrderByTitleAsc(String title);
 }

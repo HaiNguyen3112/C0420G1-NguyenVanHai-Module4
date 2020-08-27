@@ -42,6 +42,9 @@ Comments:
         <th>content</th>
         <th>totalLike</th>
     </tr>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
     <tr th:each="comment : ${commentList}">
         <form th:action="@{/home/like/{id}(id=${comment.id})}" method="post">
             <td th:text="${comment.getMark()}">

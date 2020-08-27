@@ -6,6 +6,9 @@
 </head>
 <body>
 <a th:href="@{/blog}">Back to List</a>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
 <form th:action="@{/blog/create}" th:object="${blog}" method="post">
     <table>
         <tr>
