@@ -2,6 +2,7 @@ package com.codegym.update_blog.service.Impl;
 
 
 import com.codegym.update_blog.model.Blog;
+import com.codegym.update_blog.model.Category;
 import com.codegym.update_blog.repository.BlogRepository;
 import com.codegym.update_blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,10 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Page<Blog> findAllByTitleContainingOrderByDateAsc(String title, Pageable pageable) {
         return blogRepository.findAllByTitleContainingOrderByDateAsc(title,pageable);
+    }
+
+    @Override
+    public Page<Blog> findAllByCategoryOrderByDateAsc(Category category, Pageable pageable) {
+        return blogRepository.findAllByCategoryOrderByDateAsc(category,pageable);
     }
 }

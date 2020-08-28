@@ -2,6 +2,7 @@ package com.codegym.update_blog.controller;
 
 
 import com.codegym.update_blog.model.Blog;
+import com.codegym.update_blog.model.Category;
 import com.codegym.update_blog.service.BlogService;
 import com.codegym.update_blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -24,13 +26,13 @@ public class BlogController {
 
     @GetMapping("/blog")
     public String showList(@RequestParam(name = "title",defaultValue = "")String search, Model model,
-                           @PageableDefault(value = 3) Pageable pageable){
+                           @PageableDefault(value = 4) Pageable pageable){
 
         Page<Blog> blogList = blogService.findAllByTitleContaining(search,pageable);
 
         if (blogList.isEmpty())
             model.addAttribute("message","Blog Empty");
-
+        model.addAttribute("categoryList",categoryService.findAllCategory());
         model.addAttribute("search",search);
         model.addAttribute("blogList",blogList);
 
@@ -38,18 +40,48 @@ public class BlogController {
     }
     @GetMapping("/blog/sort")
     public String showSortList(@RequestParam(name = "title",defaultValue = "")String search, Model model,
-                           @PageableDefault(value = 3) Pageable pageable){
+                           @PageableDefault(value = 4) Pageable pageable){
 
         Page<Blog> blogList = blogService.findAllByTitleContainingOrderByDateAsc(search,pageable);
 
         if (blogList.isEmpty())
             model.addAttribute("message","Blog Empty");
-
+        model.addAttribute("categoryList",categoryService.findAllCategory());
         model.addAttribute("search",search);
         model.addAttribute("blogList",blogList);
 
         return "blog/list";
     }
+
+    @GetMapping("/blog/cate")
+    public String showSortList(@RequestParam(name = "title",defaultValue = "")String search, Model model,
+                               @PageableDefault(value = 4) Pageable pageable,
+                               @RequestParam(name = "category",defaultValue = "") Category category){
+
+        Page<Blog> blogList = blogService.findAllByCategoryOrderByDateAsc(category,pageable);
+
+        if (blogList.isEmpty())
+            model.addAttribute("message","Blog Empty");
+        model.addAttribute("categoryList",categoryService.findAllCategory());
+        model.addAttribute("search",search);
+        model.addAttribute("blogList",blogList);
+
+        return "blog/list";
+    }
+
+//    @GetMapping("/blog/{name}")
+//    public String showByCate(@PathVariable Long name,@RequestParam(name = "title",defaultValue = "")String search, Model model,
+//                             @PageableDefault(value = 4) Pageable pageable){
+//        Page<Blog> blogList = blogService.findAllByCategoryOrderByDateAsc(search,pageable);
+//
+//        if (blogList.isEmpty())
+//            model.addAttribute("message","Blog Empty");
+//        model.addAttribute("categoryList",categoryService.findAllCategory());
+//        model.addAttribute("search",search);
+//        model.addAttribute("blogList",blogList);
+//
+//        return "blog/list";
+//    }
 
     @GetMapping("/blog/create")
     public String createForm(Model model){

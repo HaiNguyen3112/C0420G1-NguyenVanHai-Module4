@@ -18,11 +18,30 @@
 <br><br>
 <a th:href="@{/blog/sort}">Sort by date</a>
 <br><br>
+<form th:action="@{/blog/cate}">
+    <select name="category" style="font-weight: bold">
+        <option> Category</option>
+        <option th:each="c : ${categoryList}"
+                th:value="*{c.id}"
+                th:text="*{c.name}"
+                th:href="@{/blog/{name}(id=*{c.name})}"></option>
+    </select>
+    <input type="submit" value="Oke">
+</form>
+
 <table border="1">
     <tr>
         <th>STT</th>
         <th>Title</th>
-        <th>Category</th>
+        <th>
+            <select name="category" style="font-weight: bold">
+                <option> Category</option>
+                <option th:each="c : ${categoryList}"
+                        th:value="*{c.id}"
+                        th:text="*{c.name}"
+                        th:href="@{/blog/{name}(id=*{c.name})}"></option>
+            </select>
+        </th>
         <th>Date</th>
         <th>Edit</th>
         <th>Delete</th>
