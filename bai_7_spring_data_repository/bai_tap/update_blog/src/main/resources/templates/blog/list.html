@@ -7,6 +7,7 @@
 <body>
 <a th:href="@{/blog/create}">Create new Blog</a>
 
+
 <form>
     <input type="search" name="title" placeholder="Enter Title">
     <input type="submit" value="Search">
@@ -18,28 +19,31 @@
 <br><br>
 <a th:href="@{/blog/sort}">Sort by date</a>
 <br><br>
-<form th:action="@{/blog/cate}">
-    <select name="category" style="font-weight: bold">
-        <option> Category</option>
-        <option th:each="c : ${categoryList}"
-                th:value="*{c.id}"
-                th:text="*{c.name}"
-                th:href="@{/blog/{name}(id=*{c.name})}"></option>
-    </select>
-    <input type="submit" value="Oke">
-</form>
+<!--<form th:action="@{/blog/cate}">-->
+<!--    Category:-->
+<!--    <select name="category" style="font-weight: bold">-->
+<!--        <option th:each="c : ${categoryList}"-->
+<!--                th:value="*{c.id}"-->
+<!--                th:text="*{c.name}"-->
+<!--                th:href="@{/blog/{name}(id=*{c.name})}"></option>-->
+<!--    </select>-->
+<!--    <input type="submit" value="Oke">-->
+<!--</form>-->
 
 <table border="1">
     <tr>
         <th>STT</th>
         <th>Title</th>
         <th>
-            <select name="category" style="font-weight: bold">
-                <option> Category</option>
-                <option th:each="c : ${categoryList}"
-                        th:value="*{c.id}"
-                        th:text="*{c.name}"
-                        th:href="@{/blog/{name}(id=*{c.name})}"></option>
+<!--            <select name="category" style="font-weight: bold">-->
+<!--                <option> Category</option>-->
+<!--                <option th:each="c : ${categoryList}"-->
+<!--                        th:value="*{c.id}"-->
+<!--                        th:text="*{c.name}"-->
+<!--                        th:href="@{/blog/{name}(id=*{c.name})}"></option>-->
+<!--            </select>-->
+            <select name="ap" style="font-weight: bold">
+                <option>Category</option>
             </select>
         </th>
         <th>Date</th>
@@ -62,5 +66,28 @@
     <span th:text="${blogList.number +1}"></span> / <span th:text="${blogList.totalPages}"></span>
     <a th:href="@{'/blog'(page=${blogList.number+1},title=${search})}" th:if="${blogList.hasNext()}">Next</a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    const $select = $('select[name="ap"]');
+    const opts = [
+        {'value':'http://localhost:8080/blog', 'text':'All'},
+        {'value':'http://localhost:8080/blog/cate?category=1', 'text':'Sporty'},
+        {'value':'http://localhost:8080/blog/cate?category=2', 'text':'Food'},
+        {'value':'http://localhost:8080/blog/cate?category=3', 'text':'Travel'}
+    ];
+
+    opts.forEach(function(obj){
+        $("<option />", {
+            value: obj.value,
+            text: obj.text
+        }).appendTo($select)
+    });
+
+    $select.on("change", function(){
+        window.location = this.value;
+    });
+</script>
+
 </body>
 </html>
