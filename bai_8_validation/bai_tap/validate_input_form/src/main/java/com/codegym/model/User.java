@@ -77,15 +77,15 @@ public class User implements Validator {
         User user = (User) target;
         String number = user.getPhoneNumber();
         String email = user.getEmail();
-        ValidationUtils.rejectIfEmpty(errors,"number","number.empty");
+        ValidationUtils.rejectIfEmpty(errors,"phoneNumber","number.empty");
         if (number.length() > 11 || number.length() <10){
-            errors.rejectValue("number","number.length");
+            errors.rejectValue("phoneNumber","number.length");
         }
         if (!number.startsWith("0")){
-            errors.rejectValue("number","number.startsWith");
+            errors.rejectValue("phoneNumber","number.startsWith");
         }
         if (!number.matches("(^$|[0-9]*$)")){
-            errors.rejectValue("number","number.matches");
+            errors.rejectValue("phoneNumber","number.matches");
         }
         if(!email.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$")){
             errors.rejectValue("email","email.matches");

@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
-    @GetMapping("/valid")
+    @GetMapping("/")
     public String show(Model model){
         model.addAttribute("user", new User());
         return "index";
