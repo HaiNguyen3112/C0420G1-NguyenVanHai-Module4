@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Controller
 public class BookController {
+    int count =0;
     Map<Integer,Book> bookList = new HashMap<>();
 
     @Autowired
