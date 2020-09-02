@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes("mycounter")
 public class CounterController {
- 
+
     @ModelAttribute("mycounter")
     public MyCounter setUpCounter() {
         return new MyCounter();
