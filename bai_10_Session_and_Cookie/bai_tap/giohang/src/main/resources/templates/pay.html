@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toan</title>
+</head>
+<body>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<table  >
+    <tr th:each="product : ${products.keySet()}">
+        <td >
+<!--            <img th:src="@{/img/hoacuc.jpg}" height="100" width="100"/>-->
+            <img th:src="${product.img}" height="100" width="100">
+
+        </td>
+        <td>
+            <table>
+                <tr th:text="${product.getName()}"></tr>
+                <tr>
+                    <td>Mã sản phẩm: </td>
+                    <td th:text="${product.id}"></td>
+                </tr>
+                <tr>
+                    <td>Đơn giá: </td>
+                    <td th:text="${product.price}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số lượng: </td>
+                    <td th:text="${products.get(product)}">
+                        <!--                    <input id="quantity" type="number" th:value="${products.get(product)}">-->
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td><a th:href="@{/product/delete{cookieName}(cookieName = ${product.getCode()})}">Delete</a></td>
+
+    </tr>
+    <tr>
+        <td>Tổng tiền </td>
+        <td th:text="${total}">
+<!--            <span id="total" ></span>-->
+        </td>
+    </tr>
+</table>
+<!--<script>-->
+<!--    function total() {-->
+<!--        let quantity = parseInt(document.getElementById("quantity").value);-->
+
+<!--        let price = parseInt(document.getElementById("price").value);-->
+<!--        let total =0;-->
+<!--        total += quantity*price ;-->
+<!--        total = String(total);-->
+
+<!--        document.getElementById("total").innerHTML = total;-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>

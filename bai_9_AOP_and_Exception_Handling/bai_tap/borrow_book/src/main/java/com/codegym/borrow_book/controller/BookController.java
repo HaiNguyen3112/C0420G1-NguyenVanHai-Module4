@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,7 +24,13 @@ public class BookController {
     BookService bookService;
     @GetMapping("/books")
     public ModelAndView showList(){
-        return new ModelAndView("list","bookList",bookService.getAllBook());
+        ModelAndView modelAndView = new ModelAndView("list");
+        List<Book> list = bookService.getAllBook();
+        if (list.isEmpty()) {
+            modelAndView.addObject("message", "List Empty!!!");
+        }
+        modelAndView.addObject( "bookList", bookService.getAllBook());
+        return modelAndView;
     }
 
     @GetMapping("/books/borrow/{id}")

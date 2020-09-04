@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/product/view}" method="post" th:object="${product}">
+    <table >
+        <tr>
+            <td >
+                <img th:src="${product.img}" height="100" width="100">
+            </td>
+            <td>
+                <span  th:text="${product.name}"></span>
+                <br>
+                <span>1.Tặng banner, thiệp(trị giá 20.000) miến phí</span><br>
+                <span>2. Giảm 20.000 khi mua hàng online</span><br>
+                <span>3. Free ship nội thành</span><br>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="${product.price}"></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Mua ngay"></td>
+        </tr>
+        <tr>
+            <td><a th:href="@{/product}">Back</a></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
