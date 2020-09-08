@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog List</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#searchForm').submit(function(event) {
+                var search = $('#search').val();
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type : "POST",
+                    data: search,
+                    url: "/blog/search",
+                    success: function(blogs) {
+                        var respContent = "<table border='1'>";
+                        respContent += " <tr>\n" +
+                            "        <th>Title</th>\n" +
+                            "        <th>Category</th>\n" +
+                            "        <th>Content</th>\n" +
+                            "        <th>Date</th>\n" +
+                            "    </tr>"
+                        for (let blog of blogs){
+                            respContent +="<tr>";
+                            respContent += "<td>" + blog.title+" </td>";
+                            respContent += "<td>" + blog.category.name +"</td>";
+                            respContent += "<td>" + blog.content +"</td>";
+                            respContent += "<td>" + blog.date +"</td>";
+                            respContent += "</tr>"
+                        }
+                        respContent +="</table>";
+                        $("#list").hide();
+                        $("#page").hide();
+                        $("#result").html(respContent);
+                    }
+                });
+                event.preventDefault();
+            });
+        });
+
+        $(document).ready(function() {
+            $('#listajaxsubmit').click(function(event) {
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type : "GET",
+                    url: "/blog",
+                    success: function(blogs) {
+                        alert(blogs)
+                        var respContent = "<table border='1'>";
+                        for (let blog of blogs)
+                        // respContent += "<tr th:each=\"blog, blogStart : ${blogList}\">\n" +
+                        //     "        <td th:text=\"${blogStart.count}\"></td>\n" +
+                        //     "\n" +
+                        //     "        <td><a th:href=\"@{/blog/view/{id}(id=${blog.id})}\" th:text=\"${blog.title}\"></a></td>\n" +
+                        //     "        <td th:text=\"${blog.category.getName()}\"></td>\n" +
+                        //     "        <td th:text=\"${blog.date}\"></td>\n" +
+                        //     "        <td><a th:href=\"@{/blog/edit/{id}(id=${blog.id})}\">Edit</a></td>\n" +
+                        //     "        <td><a th:href=\"@{/blog/delete/{id}(id=${blog.id})}\">Delete</a></td>\n" +
+                        //     "\n" +
+                        //     "    </tr>";
+                            respContent += "1";
+                        respContent += "</table>";
+                        $("#listajax").html(respContent);
+                    }
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+<body>
+<a th:href="@{/blog/create}">Create new Blog</a>
+<form id="searchForm">
+    <input type="text" id="search" name="title" placeholder="Enter Title">
+    <input type="submit" value="Search">
+</form>
+
+
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<br><br>
+<a th:href="@{/blog/sort}">Sort by date</a>
+<br><br>
+
+<input id="listajaxsubmit" type="button" value="List">
+<p id="listajax"></p>
+
+
+<p id = "result"></p>
+<table border="1" id ="list">
+    <tr>
+        <th>STT</th>
+        <th>Title</th>
+        <th>
+            <select name="ap" style="font-weight: bold">
+                <option>Category</option>
+            </select>
+        </th>
+        <th>Date</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="blog, blogStart : ${blogList}">
+        <td th:text="${blogStart.count}"></td>
+
+        <td><a th:href="@{/blog/view/{id}(id=${blog.id})}" th:text="${blog.title}"></a></td>
+        <td th:text="${blog.category.getName()}"></td>
+        <td th:text="${blog.date}"></td>
+        <td><a th:href="@{/blog/edit/{id}(id=${blog.id})}">Edit</a></td>
+        <td><a th:href="@{/blog/delete/{id}(id=${blog.id})}">Delete</a></td>
+
+    </tr>
+</table>
+
+<div id="page">
+    <a th:href="@{'/blog'(page=${blogList.number -1},title=${search})}" th:if="${blogList.hasPrevious()}">Previous</a>
+    <span th:text="${blogList.number +1}"></span> / <span th:text="${blogList.totalPages}"></span>
+    <a th:href="@{'/blog'(page=${blogList.number+1},title=${search})}" th:if="${blogList.hasNext()}">Next</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    const $select = $('select[name="ap"]');
+    const opts = [
+        {'value':'http://localhost:8080/blog', 'text':'All'},
+        {'value':'http://localhost:8080/blog/cate?category=1', 'text':'Sporty'},
+        {'value':'http://localhost:8080/blog/cate?category=2', 'text':'Food'},
+        {'value':'http://localhost:8080/blog/cate?category=3', 'text':'Travel'}
+    ];
+
+    opts.forEach(function(obj){
+        $("<option />", {
+            value: obj.value,
+            text: obj.text
+        }).appendTo($select)
+    });
+
+    $select.on("change", function(){
+        window.location = this.value;
+    });
+</script>
+
+</body>
+</html>
