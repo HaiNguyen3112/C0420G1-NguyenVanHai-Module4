@@ -7,6 +7,7 @@ import com.codegym.blog_ajax.service.BlogService;
 import com.codegym.blog_ajax.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -52,6 +53,18 @@ public class BlogController {
     public List<Blog> searchBlog(@RequestBody String search) {
         return blogService.findAllByTitleContaining(search);
     }
+
+
+
+    @GetMapping ("/more")
+    @ResponseBody
+    public Page<Blog> listBlog1(@RequestParam(value = "numberOfPage")int number, Pageable pageable) {
+        Page<Blog> blogs = blogService.findAll(PageRequest.of(0,number));
+        return blogs;
+    }
+
+
+
 
 
 

@@ -17,4 +17,6 @@ public interface BlogService  {
     Page<Blog> findAllByTitleContainingOrderByDateAsc(String title, Pageable pageable);
     Page<Blog> findAllByCategoryOrderByDateAsc(Category category, Pageable pageable);
     List<Blog> findAllByTitleContaining(String title);
+
+    Page<Blog> findAll(Pageable pageable);
 }

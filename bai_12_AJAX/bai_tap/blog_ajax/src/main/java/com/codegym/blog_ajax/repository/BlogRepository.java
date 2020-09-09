@@ -18,4 +18,5 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
     Page<Blog> findAllByCategoryOrderByDateAsc(Category category, Pageable pageable);
 
     List<Blog> findAllByTitleContaining(String title);
+    Page<Blog> findAll(Pageable pageable);
 }

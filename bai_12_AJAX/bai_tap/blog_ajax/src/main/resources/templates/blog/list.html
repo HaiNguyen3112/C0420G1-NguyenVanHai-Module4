@@ -5,6 +5,7 @@
     <title>Blog List</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
+        let numberOfPage = 3;
         $(document).ready(function() {
             $('#searchForm').submit(function(event) {
                 var search = $('#search').val();
@@ -40,37 +41,55 @@
                 });
                 event.preventDefault();
             });
-        });
 
-        $(document).ready(function() {
-            $('#listajaxsubmit').click(function(event) {
+            $("#btn-more").click(function (event) {
+                $("#btn-more").prop("disabled", true);
                 $.ajax({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+                    type: "GET",
+                    contentType: "application/json",
+                    url: "/more",
+                    data: {numberOfPage: numberOfPage},
+                    dataType: 'json',
+                    cache: false,
+                    timeout:60000,
+                    success: function (data) {
+                        let blogs = data.content;
+                        let json = "<table border='1'>";
+                        for (let i = 0; i < blogs.length; i++) {
+                            json += "<tr>" +
+                                "<td>" + blogs[i].title + "</td>" +
+                                "<td>" + blogs[i].category.name + "</td>" +
+                                "<td>" + blogs[i].content + "</td>" +
+                                "<td>" + blogs[i].date + "</td>" +
+
+                                "<td><a href='/view-blog/" + blogs[i].id + "'"+">View</a></td>" +
+                                "<td><a href='@{/blog/edit/" + blogs[i].id +"'"+">Update</a></td>" +
+                                "<td><a href='@{/blog/delete/" + blogs[i].id +"'"+ ">Delete</a></td>" +
+                                "</tr>"
+                        }
+                        json += "</table>";
+                        document.getElementById("list").innerHTML = json;
+                        $("#btn-more").prop("disabled", false);
+
                     },
-                    type : "GET",
-                    url: "/blog",
-                    success: function(blogs) {
-                        alert(blogs)
-                        var respContent = "<table border='1'>";
-                        for (let blog of blogs)
-                        // respContent += "<tr th:each=\"blog, blogStart : ${blogList}\">\n" +
-                        //     "        <td th:text=\"${blogStart.count}\"></td>\n" +
-                        //     "\n" +
-                        //     "        <td><a th:href=\"@{/blog/view/{id}(id=${blog.id})}\" th:text=\"${blog.title}\"></a></td>\n" +
-                        //     "        <td th:text=\"${blog.category.getName()}\"></td>\n" +
-                        //     "        <td th:text=\"${blog.date}\"></td>\n" +
-                        //     "        <td><a th:href=\"@{/blog/edit/{id}(id=${blog.id})}\">Edit</a></td>\n" +
-                        //     "        <td><a th:href=\"@{/blog/delete/{id}(id=${blog.id})}\">Delete</a></td>\n" +
-                        //     "\n" +
-                        //     "    </tr>";
-                            respContent += "1";
-                        respContent += "</table>";
-                        $("#listajax").html(respContent);
+                    error: function (e) {
+
+                        var json = "<h4>Ajax Response</h4><pre>"
+                            + e.responseText + "</pre>";
+                        $('#feedback').html(json);
+
+                        console.log("ERROR : ", e);
+                        $("#btn-more").prop("disabled", false);
+
                     }
+
                 });
+                numberOfPage += 3;
+                //stop submit the form, we will post it manually.
                 event.preventDefault();
+
+
+
             });
         });
     </script>
@@ -90,9 +109,8 @@
 <a th:href="@{/blog/sort}">Sort by date</a>
 <br><br>
 
-<input id="listajaxsubmit" type="button" value="List">
-<p id="listajax"></p>
-
+<button type="button" id="btn-more" class="btn btn-primary btn-lg">More
+</button>
 
 <p id = "result"></p>
 <table border="1" id ="list">
