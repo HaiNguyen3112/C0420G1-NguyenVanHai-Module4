@@ -87,10 +87,15 @@
                 numberOfPage += 3;
                 //stop submit the form, we will post it manually.
                 event.preventDefault();
-
-
-
             });
+
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
         });
     </script>
 </head>
@@ -100,7 +105,8 @@
     <input type="text" id="search" name="title" placeholder="Enter Title">
     <input type="submit" value="Search">
 </form>
-
+<input id="myInput" type="text" placeholder="Search..">
+<br><br>
 
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
@@ -126,16 +132,19 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <tr th:each="blog, blogStart : ${blogList}">
-        <td th:text="${blogStart.count}"></td>
+    <tbody id="myTable">
+        <tr th:each="blog, blogStart : ${blogList}">
+            <td th:text="${blogStart.count}"></td>
 
-        <td><a th:href="@{/blog/view/{id}(id=${blog.id})}" th:text="${blog.title}"></a></td>
-        <td th:text="${blog.category.getName()}"></td>
-        <td th:text="${blog.date}"></td>
-        <td><a th:href="@{/blog/edit/{id}(id=${blog.id})}">Edit</a></td>
-        <td><a th:href="@{/blog/delete/{id}(id=${blog.id})}">Delete</a></td>
+            <td><a th:href="@{/blog/view/{id}(id=${blog.id})}" th:text="${blog.title}"></a></td>
+            <td th:text="${blog.category.getName()}"></td>
+            <td th:text="${blog.date}"></td>
+            <td><a th:href="@{/blog/edit/{id}(id=${blog.id})}">Edit</a></td>
+            <td><a th:href="@{/blog/delete/{id}(id=${blog.id})}">Delete</a></td>
 
-    </tr>
+        </tr>
+    </tbody>
+
 </table>
 
 <div id="page">
