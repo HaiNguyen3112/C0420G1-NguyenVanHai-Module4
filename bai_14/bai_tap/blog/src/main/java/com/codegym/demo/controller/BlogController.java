@@ -154,6 +154,9 @@ public class BlogController {
         return "redirect:/blog";
     }
 
+
+
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
 

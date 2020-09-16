@@ -103,6 +103,9 @@
 <a th:href="@{/login}">Login</a>
 <a th:href="@{/blog/create}">Create new Blog</a>
 <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+
+
+
 <form id="searchForm">
     <input type="text" id="search" name="title" placeholder="Enter Title">
     <input type="submit" value="Search">
@@ -139,7 +142,7 @@
             <td th:text="${blogStart.count}"></td>
 
             <td><a th:href="@{/blog/view/{id}(id=${blog.id})}" th:text="${blog.title}"></a></td>
-            <td th:text="${blog.category.getName()}"></td>
+            <td th:text="${blog.category.name}"></td>
             <td th:text="${blog.date}"></td>
             <td><a th:href="@{/blog/edit/{id}(id=${blog.id})}">Edit</a></td>
             <td><a th:href="@{/blog/delete/{id}(id=${blog.id})}">Delete</a></td>

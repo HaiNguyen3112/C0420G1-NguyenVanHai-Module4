@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="/head"></th:block>
+    <title>HomePage</title>
+    <style>
+        body {
+            background-image: url("https://www.pxwall.com/wp-content/uploads/2018/06/Wallpaper%20Thailand,%20hotel,%20ocean,%20beach,%20vacation,%205k,%204k,%20Travel%205510413578.jpg")!important;
+            background-size: cover;
+        }
+    </style>
+
+<body >
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="https://furamavietnam.com/wp-content/uploads/2018/08/logo@2x.png" width="40" height="60">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/contract">Contract</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/service">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal == null}" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:text="${#request.userPrincipal.name}"></a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+</body>
+</html>

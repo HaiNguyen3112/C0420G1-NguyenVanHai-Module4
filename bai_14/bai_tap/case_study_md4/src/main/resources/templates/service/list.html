@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="/head"></th:block>
+    <title>List Service</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/contract">Contract</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/service">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal == null}" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:text="${#request.userPrincipal.name}"></a>
+            </li>
+            <a class="btn btn-outline-success" href="/service/create" role="button">+ Add New Service</a>
+        </ul>
+        <form class="form-inline my-2 my-lg-0"  th:action="@{/service/search}" method="post">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="name" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<br>
+
+<table class="table" >
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Name</th>
+            <th scope="col">Area</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Max People</th>
+            <th scope="col">Type Rent</th>
+            <th scope="col">Type Service</th>
+            <th scope="col">Standard Room</th>
+            <th scope="col">Description</th>
+            <th scope="col">Pool Area</th>
+            <th scope="col">Floor</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="service, serviceStart : ${serviceList}">
+        <td th:text="${serviceStart.count}" scope="row"></td>
+
+        <td><a th:href="@{/service/view/{id}(id=${service.id})}" th:text="${service.name}"></a></td>
+        <td th:text="${service.area}"></td>
+        <td th:text="${service.cost}"></td>
+        <td th:text="${service.max_people}"></td>
+        <td th:text="${service.rentTypeId.name}"></td>
+        <td th:text="${service.serviceTypeId.name}"></td>
+        <td th:text="${service.standardRoom}"></td>
+        <td th:text="${service.descriptionOtherConvenience}"></td>
+        <td th:text="${service.poolArea}"></td>
+        <td th:text="${service.numberOfFloors}"></td>
+        <td><a th:href="@{/service/edit/{id}(id=${service.id})}">Edit</a></td>
+        <td><a th:href="@{/service/delete/{id}(id=${service.id})}">Delete</a></td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+<div>
+    <a th:href="@{'/service'(page=${serviceList.number -1},title=${search})}" th:if="${serviceList.hasPrevious()}">Previous</a>
+    <span th:text="${serviceList.number +1}"></span> / <span th:text="${serviceList.totalPages}"></span>
+    <a th:href="@{'/service'(page=${serviceList.number+1},title=${search})}" th:if="${serviceList.hasNext()}">Next</a>
+</div>
+</body>
+</html>

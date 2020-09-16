@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="/head"></th:block>
+    <title>List Customer</title>
+</head>
+<body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/contract">Contract</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/service">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal == null}" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:text="${#request.userPrincipal.name}"></a>
+            </li>
+            <a class="btn btn-outline-success" href="/contract/create" role="button">+ Add New Contract</a>
+        </ul>
+        <form class="form-inline my-2 my-lg-0"  th:action="@{/contract/search}" method="post">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="codeContract" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+
+
+<table class="table" >
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">ID</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Start</th>
+            <th scope="col">Deposit</th>
+            <th scope="col">Total Money</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Service</th>
+            <th scope="col">Detail</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contract, contractStart : ${contractList}">
+        <td th:text="${contractStart.count}" scope="row"></td>
+
+        <td><a th:href="@{/contract/view/{id}(id=${contract.id})}" th:text="${contract.codeContract}"></a></td>
+        <td th:text="${contract.startDate}"></td>
+        <td th:text="${contract.endDate}"></td>
+        <td th:text="${contract.deposit}"></td>
+        <td th:text="${contract.totalMoney}"></td>
+        <td th:text="${contract.employeeId.name}"></td>
+        <td th:text="${contract.customerId.name}"></td>
+        <td th:text="${contract.serviceId.name}"></td>
+        <td><a th:href="@{/contractdetail/create/{id}(id=${contract.id})}">Create Detail</a></td>
+        <td><a th:href="@{/contract/edit/{id}(id=${contract.id})}">Edit</a></td>
+        <td><a th:href="@{/contract/delete/{id}(id=${contract.id})}">Delete</a></td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>

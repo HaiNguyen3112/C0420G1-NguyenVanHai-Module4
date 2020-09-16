@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Customer</title>
+
+    <th:block th:include="/head"></th:block>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/contract">Contract</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/service">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal == null}" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:text="${#request.userPrincipal.name}"></a>
+            </li>
+            <a class="btn btn-outline-success" href="/customer/create" role="button">+ Add New Customer</a>
+        </ul>
+        <form class="form-inline my-2 my-lg-0"  th:action="@{/customer/search}" method="post">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="name" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Name</th>
+        <th scope="col">Code</th>
+        <th scope="col">Type Customer</th>
+        <th scope="col">Birthday</th>
+        <th scope="col">Gender</th>
+        <th scope="col">ID Card</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer, customerStart : ${customerList}">
+        <th scope="row" th:text="${customerStart.count}"></th>
+
+        <td><a th:href="@{/customer/view/{id}(id=${customer.id})}" th:text="${customer.name}"></a></td>
+        <td th:text="${customer.codeCustomer}"></td>
+        <td th:text="${customer.typeId.name}"></td>
+        <td th:text="${customer.birthday}"></td>
+        <td th:text="${customer.gender}"></td>
+        <td th:text="${customer.idCard}"></td>
+        <td th:text="${customer.phone}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.address}"></td>
+        <td><a th:href="@{/customer/edit/{id}(id=${customer.id})}">Edit</a></td>
+        <td><a th:href="@{/customer/delete/{id}(id=${customer.id})}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{'/customer'(page=${customerList.number -1},title=${search})}" th:if="${customerList.hasPrevious()}">Previous</a>
+    <span th:text="${customerList.number +1}"></span> / <span th:text="${customerList.totalPages}"></span>
+    <a th:href="@{'/customer'(page=${customerList.number+1},title=${search})}" th:if="${customerList.hasNext()}">Next</a>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!--<table border="1" >-->
+<!--    <tr>-->
+<!--        <th>STT</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Code</th>-->
+<!--        <th>Type Customer</th>-->
+<!--        <th>Birthday</th>-->
+<!--        <th>Gender</th>-->
+<!--        <th>ID Card</th>-->
+<!--        <th>Phone Number</th>-->
+<!--        <th>Email</th>-->
+<!--        <th>Address</th>-->
+<!--        <th>Edit</th>-->
+<!--        <th>Delete</th>-->
+<!--    </tr>-->
+<!--    <tbody>-->
+<!--    <tr th:each="customer, customerStart : ${customerList}">-->
+<!--        <td th:text="${customerStart.count}"></td>-->
+
+<!--        <td><a th:href="@{/customer/view/{id}(id=${customer.id})}" th:text="${customer.name}"></a></td>-->
+<!--        <td th:text="${customer.codeCustomer}"></td>-->
+<!--        <td th:text="${customer.typeId.name}"></td>-->
+<!--        <td th:text="${customer.birthday}"></td>-->
+<!--        <td th:text="${customer.gender}"></td>-->
+<!--        <td th:text="${customer.idCard}"></td>-->
+<!--        <td th:text="${customer.phone}"></td>-->
+<!--        <td th:text="${customer.email}"></td>-->
+<!--        <td th:text="${customer.address}"></td>-->
+<!--        <td><a th:href="@{/customer/edit/{id}(id=${customer.id})}">Edit</a></td>-->
+<!--        <td><a th:href="@{/customer/delete/{id}(id=${customer.id})}">Delete</a></td>-->
+
+<!--    </tr>-->
+<!--    </tbody>-->
+
+<!--</table>-->

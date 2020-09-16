@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="/head"></th:block>
+    <title>Contract's Information</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/contract">Contract</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/service">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal == null}" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:text="${#request.userPrincipal.name}"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" >Code Contract</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Start</th>
+            <th scope="col">Deposit</th>
+            <th scope="col">Total Money</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Service</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:object="${contract}">
+            <td th:text="*{codeContract}"></td>
+            <td th:text="*{startDate}"></td>
+            <td th:text="*{endDate}"></td>
+            <td th:text="*{deposit}"></td>
+            <td th:text="*{totalMoney}"></td>
+            <td th:text="*{employeeId.name}"></td>
+            <td th:text="*{customerId.name}"></td>
+            <td th:text="*{serviceId.name}"></td>
+        </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

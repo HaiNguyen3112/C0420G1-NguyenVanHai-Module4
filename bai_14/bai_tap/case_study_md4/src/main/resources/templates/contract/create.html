@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="/head"></th:block>
+    <title>Create New Contract</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/contract">Contract</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/service">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal == null}" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:if="${#request.userPrincipal != null}" th:text="${#request.userPrincipal.name}"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/contract/create}" th:object="${contract}" method="post">
+    <table>
+
+        <tr>
+            <td><input type="hidden" th:field="*{id}"></td>
+        </tr>
+
+        <tr>
+            <td>Code Contract</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{codeContract}"></td>
+        </tr>
+
+
+        <tr>
+            <td>Start Date</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{startDate}"></td>
+        </tr>
+
+        <tr>
+            <td>End Date</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{endDate}"></td>
+        </tr>
+
+        <tr>
+            <td>Deposit</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{deposit}"></td>
+        </tr>
+
+        <tr>
+            <td>Total Money</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{totalMoney}"></td>
+        </tr>
+
+        <tr>
+            <td>Employee</td>
+        </tr>
+        <tr>
+            <td>
+                <select th:field="*{employeeId}" >
+                    <option th:each="c : ${employeeList}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Customer</td>
+        </tr>
+        <tr>
+            <td>
+                <select th:field="*{customerId}" >
+                    <option th:each="c : ${customerList}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Service</td>
+        </tr>
+        <tr>
+            <td>
+                <select th:field="*{serviceId}" >
+                    <option th:each="c : ${serviceList}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Create Contract"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

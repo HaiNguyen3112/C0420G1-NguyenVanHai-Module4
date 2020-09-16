@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="/head"></th:block>
+    <title>Create New Contract Detail</title>
+</head>
+<body>
+<a th:href="@{/contract}">Back to List Contract</a>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+    <table th:object="${contract}" border="1">
+
+        <tr>
+            <td><input type="hidden" th:field="*{id}"></td>
+        </tr>
+
+        <tr>
+            <td>Code Contract</td>
+        </tr>
+        <tr>
+            <td th:text="*{codeContract}"></td>
+        </tr>
+
+
+        <tr>
+            <td>Start Date</td>
+        </tr>
+        <tr>
+            <td th:text="*{startDate}"></td>
+        </tr>
+
+        <tr>
+            <td>End Date</td>
+        </tr>
+        <tr>
+            <td th:text="*{endDate}"></td>
+        </tr>
+
+        <tr>
+            <td>Deposit</td>
+        </tr>
+        <tr>
+            <td th:text="*{deposit}"></td>
+        </tr>
+
+        <tr>
+            <td>Total Money</td>
+        </tr>
+        <tr >
+            <td th:text="*{totalMoney}"></td>
+        </tr>
+
+        <tr>
+            <td>Employee</td>
+        </tr>
+        <tr>
+            <td th:text="*{employeeId.name}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>Customer</td>
+        </tr>
+        <tr>
+            <td th:text="*{customerId.name}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>Service</td>
+        </tr>
+        <tr>
+            <td th:text="*{serviceId.name}">
+
+            </td>
+        </tr>
+
+    </table>
+
+
+<form th:action="@{/contractdetail/create}" th:object="${contractDetail}" method="post">
+    <table>
+
+
+    <tr>
+        <td><input type="hidden" th:field="*{id}"></td>
+    </tr>
+
+    <tr>
+        <td>
+            <select th:field="*{contract}" >
+                <option th:each="c : ${contract}"
+                        th:value="${c.id}"
+                        th:text="${c.CodeContract}"></option>
+            </select>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Attach Service</td>
+    </tr>
+    <tr>
+        <td>
+            <select th:field="*{attachService}" >
+                <option th:each="c : ${attachServiceList}"
+                        th:value="${c.attachServiceId}"
+                        th:text="${c.name}"></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Quantity</td>
+    </tr>
+    <tr>
+        <td><input th:field="*{quantity}"></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Create Contract Detail"></td>
+    </tr>
+    </table>
+</form>
+
+</body>
+</html>
