@@ -77,7 +77,8 @@
         <td th:text="${customer.codeCustomer}"></td>
         <td th:text="${customer.typeId.name}"></td>
         <td th:text="${customer.birthday}"></td>
-        <td th:text="${customer.gender}"></td>
+        <td th:if="${customer.gender} == 1">Nam</td>
+        <td th:unless="${customer.gender} == 1">Nữ</td>
         <td th:text="${customer.idCard}"></td>
         <td th:text="${customer.phone}"></td>
         <td th:text="${customer.email}"></td>

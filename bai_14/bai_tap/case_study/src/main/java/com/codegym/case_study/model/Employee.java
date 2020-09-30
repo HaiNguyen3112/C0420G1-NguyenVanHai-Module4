@@ -1,6 +1,7 @@
 package com.codegym.case_study.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,7 @@ public class Employee {
     @Column(name = "id_card")
     private String idCard;
 
+    @Min(1)
     private double salary;
     private String phone;
     private String email;

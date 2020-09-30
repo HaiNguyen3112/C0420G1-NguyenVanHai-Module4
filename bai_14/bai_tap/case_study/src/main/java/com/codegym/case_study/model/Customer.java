@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "customer", uniqueConstraints = {@UniqueConstraint(columnNames={"code_customer"})})
+@Table
 public class Customer implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,8 @@ public class Customer implements Validator {
     @JoinColumn(name = "type_customer_id")
     private TypeCustomer typeId;
 
-    @Column(name = "code_customer")
 
+    @Column(name = "code_customer", unique = true)
     private String codeCustomer;
 
     private String name;

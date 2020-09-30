@@ -1,10 +1,19 @@
 package com.codegym.case_study.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Contract {
+@Table
+public class Contract implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contract_id")
@@ -12,9 +21,11 @@ public class Contract {
 
 
     @Column(name = "start_date")
+    @NotEmpty(message = "Start Date not empty")
     private String startDate;
 
     @Column(name = "end_date")
+    @NotEmpty(message = "End Date is not empty")
     private String endDate;
 
     private double deposit;
@@ -37,7 +48,18 @@ public class Contract {
     @OneToMany
     private List<ContractDetail> contractDetailList;
 
+    @Column(unique = true)
     private String codeContract;
+
+    private boolean status = true;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public String getCodeContract() {
         return this.codeContract;
@@ -117,5 +139,27 @@ public class Contract {
 
     public void setServiceId(Servicee serviceId) {
         this.serviceId = serviceId;
+    }
+
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Contract.class.isAssignableFrom(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyy");
+        Contract contract = (Contract) target;
+        try {
+            Date start = format.parse(contract.startDate);
+            Date end = format.parse(contract.endDate);
+            if (!start.before(end)){
+                errors.rejectValue("startDate","date.error");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }

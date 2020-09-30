@@ -36,4 +36,14 @@ public class ContractServiceImpl implements ContractService {
     public List<Contract> findAllByCodeContractContaining(String search) {
         return contractRepository.findAllByCodeContractContaining(search);
     }
+
+    @Override
+    public List<Contract> findAllByCodeContractContainingAndStatusTrue(String codeContract) {
+        return contractRepository.findAllByCodeContractContainingAndStatusTrue(codeContract);
+    }
+
+    @Override
+    public List<Contract> findAllByCodeContractContainingAndStatusFalse(String codeContract) {
+        return contractRepository.findAllByCodeContractContainingAndStatusFalse(codeContract);
+    }
 }

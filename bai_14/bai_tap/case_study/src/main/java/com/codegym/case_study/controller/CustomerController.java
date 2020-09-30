@@ -74,7 +74,7 @@ public class CustomerController {
     public String create(@Valid @ModelAttribute Customer customer, BindingResult bindingResult, Model model){
         new Customer().validate(customer,bindingResult);
         if (bindingResult.hasFieldErrors()){
-            model.addAttribute("messageCode","Code is exist!!!");
+
             model.addAttribute("typeCustomerList",typeCustomerService.findAll());
         }
         else{
@@ -82,6 +82,7 @@ public class CustomerController {
                 customerService.save(customer);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                model.addAttribute("messageCode","Code is exist!!!");
                 model.addAttribute("typeCustomerList",typeCustomerService.findAll());
                 return "customer/create";
             }

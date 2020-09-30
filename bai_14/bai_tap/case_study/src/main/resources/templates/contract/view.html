@@ -67,5 +67,26 @@
     </tbody>
 
 </table>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Contract Detail ID</th>
+        <th scope="col" >Code Contract</th>
+        <th scope="col">Attach Service</th>
+        <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="contractDetail : ${contractDetailList}">
+        <td th:text="${contractDetail.id}"></td>
+        <td th:text="${contractDetail.contract.codeContract}"></td>
+        <td th:text="${contractDetail.attachService.name}"></td>
+        <td th:text="${contractDetail.quantity}"></td>
+
+    </tr>
+    </tbody>
+
+</table>
 </body>
 </html>

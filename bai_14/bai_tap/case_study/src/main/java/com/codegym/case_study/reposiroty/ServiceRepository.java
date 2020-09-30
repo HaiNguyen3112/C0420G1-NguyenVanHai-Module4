@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServiceRepository extends JpaRepository<Servicee,Long> {
     Page<Servicee> findAllByNameContaining(String search, Pageable pageable);
+    Page<Servicee> findAllByNameContainingAndStatusTrue(String search, Pageable pageable);
 }

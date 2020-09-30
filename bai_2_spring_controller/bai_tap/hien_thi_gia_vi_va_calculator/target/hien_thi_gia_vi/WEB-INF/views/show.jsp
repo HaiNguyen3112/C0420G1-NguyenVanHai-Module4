@@ -15,7 +15,7 @@
 <h2>Sandwich Condiments</h2>
 <form action="/sandwich/save">
     <p>
-        <input type="checkbox" name="condiment" value="Lettuce" checked="empty">Lettuce</input>
+        <input type="checkbox" name="condiment" value="Lettuce" checked>Lettuce</input>
         <input type="checkbox" name="condiment" value="Tomato">Tomato</input>
         <input type="checkbox" name="condiment" value="Mustard">Mustard</input>
         <input type="checkbox" name="condiment" value="Sprouts">Sprouts</input>

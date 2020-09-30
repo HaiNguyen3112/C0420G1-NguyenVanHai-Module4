@@ -91,4 +91,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         db.setDataSource(dataSource);
         return db;
     }
+
+//        public static void main(String[] args) {
+//        BCryptPasswordEncoder code = new BCryptPasswordEncoder();
+//        String pass = code.encode("123");
+//        System.out.println(pass);
+//    }
 }

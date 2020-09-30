@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Discount</title>
+</head>
+<body>
+<a class="btn btn-outline-success" href="/" role="button">Back</a>
+<form th:action="@{/create}" th:object="${discount}" method="post">
+    <table>
+        <tr>
+            <td><input type="hidden" th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Tiêu đề</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{title}"></td>
+            <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Code Error</td>
+        </tr>
+
+        <tr>
+            <td>Ngày bắt đầu</td>
+        </tr>
+        <tr>
+            <td><input type="date" th:field="*{startDate}"></td>
+            <td th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Code Error</td>
+        </tr>
+
+        <tr>
+            <td>Ngày kết thúc</td>
+        </tr>
+        <tr>
+            <td><input type="date" th:field="*{endDate}"></td>
+            <td th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Code Error</td>
+        </tr>
+
+        <tr>
+            <td>Mức giảm giá</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{number}"></td>
+            <td th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number Error</td>
+        </tr>
+
+        <tr>
+            <td>Chi tiết</td>
+        </tr>
+        <tr>
+            <td><input th:field="*{detail}"></td>
+            <td th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}">Code Error</td>
+        </tr>
+
+
+        <tr>
+            <td><input type="submit" value="Create"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

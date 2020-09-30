@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ContractRepository extends JpaRepository<Contract,Long> {
     List<Contract> findAllByCodeContractContaining(String codeContract);
+    List<Contract> findAllByCodeContractContainingAndStatusTrue(String codeContract);
+    List<Contract> findAllByCodeContractContainingAndStatusFalse(String codeContract);
 }

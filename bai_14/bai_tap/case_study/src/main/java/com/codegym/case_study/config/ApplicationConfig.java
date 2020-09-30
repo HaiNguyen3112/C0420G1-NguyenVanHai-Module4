@@ -30,4 +30,5 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         messageSource.setBasenames("ValidationMessages");
         return messageSource;
     }
+
 }

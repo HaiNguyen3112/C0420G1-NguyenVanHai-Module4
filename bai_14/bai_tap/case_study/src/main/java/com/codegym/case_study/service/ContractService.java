@@ -15,4 +15,6 @@ public interface ContractService {
     void deleteById(Long id);
 
     List<Contract> findAllByCodeContractContaining(String search);
+    List<Contract> findAllByCodeContractContainingAndStatusTrue(String codeContract);
+    List<Contract> findAllByCodeContractContainingAndStatusFalse(String codeContract);
 }

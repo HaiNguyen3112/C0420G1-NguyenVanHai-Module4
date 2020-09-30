@@ -27,7 +27,7 @@ public class ServiceController {
     public String showList(@RequestParam(name = "name",defaultValue = "")String search, Model model,
                            @PageableDefault(value = 4) Pageable pageable){
 
-        Page<Servicee> serviceList = serviceService.findAllByNameContaining(search,pageable);
+        Page<Servicee> serviceList = serviceService.findAllByNameContainingAndStatusTrue(search,pageable);
         if (serviceList.isEmpty())
             model.addAttribute("message","Service List Empty");
         model.addAttribute("search",search);
@@ -89,7 +89,9 @@ public class ServiceController {
 
     @GetMapping("/service/delete/{id}")
     public String delete(@PathVariable Long id){
-        serviceService.deleteById(id);
+        Servicee service = serviceService.findById(id);
+        service.setStatus(false);
+        serviceService.save(service);
         return "redirect:/service";
     }
 }

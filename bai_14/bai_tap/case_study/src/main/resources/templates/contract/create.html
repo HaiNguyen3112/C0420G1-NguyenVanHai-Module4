@@ -56,6 +56,9 @@
         </tr>
         <tr>
             <td><input th:field="*{codeContract}"></td>
+            <td> <th:block th:if="${messageCode}">
+                <p th:text="${messageCode}"></p>
+            </th:block>
         </tr>
 
 
@@ -63,14 +66,17 @@
             <td>Start Date</td>
         </tr>
         <tr>
-            <td><input th:field="*{startDate}"></td>
+            <td><input type="date" th:field="*{startDate}"></td>
+            <td th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Code Error</td>
         </tr>
+
 
         <tr>
             <td>End Date</td>
         </tr>
         <tr>
-            <td><input th:field="*{endDate}"></td>
+            <td><input type="date" th:field="*{endDate}"></td>
+            <td th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Code Error</td>
         </tr>
 
         <tr>

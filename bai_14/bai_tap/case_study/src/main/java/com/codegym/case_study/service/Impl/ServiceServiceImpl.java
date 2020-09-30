@@ -39,4 +39,9 @@ public class ServiceServiceImpl implements ServiceService {
     public List<Servicee> findAll() {
         return serviceRepository.findAll();
     }
+
+    @Override
+    public Page<Servicee> findAllByNameContainingAndStatusTrue(String search, Pageable pageable) {
+        return serviceRepository.findAllByNameContainingAndStatusTrue(search,pageable);
+    }
 }

@@ -47,7 +47,7 @@ public class ProductController {
         return "view";
     }
     @PostMapping("/product/view")
-    public String buyProduct(@ModelAttribute("product") Product product ,HttpServletResponse response,HttpServletRequest request){
+    public String buyProduct(@ModelAttribute("product") Product product,HttpServletResponse response,HttpServletRequest request){
 
             boolean check = false;
             String tempName = product.getCode();

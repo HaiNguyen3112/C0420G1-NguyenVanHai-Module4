@@ -35,13 +35,13 @@
         <th>STT</th>
         <th>Title</th>
         <th>
-<!--            <select name="category" style="font-weight: bold">-->
-<!--                <option> Category</option>-->
-<!--                <option th:each="c : ${categoryList}"-->
-<!--                        th:value="*{c.id}"-->
-<!--                        th:text="*{c.name}"-->
-<!--                        th:href="@{/blog/{name}(id=*{c.name})}"></option>-->
-<!--            </select>-->
+            <select name="category" style="font-weight: bold">
+                <option> Category</option>
+                <option th:each="c : ${categoryList}"
+                        th:value="*{c.id}"
+                        th:text="*{c.name}"
+                        th:href="@{/blog/{name}(id=*{c.name})}"></option>
+            </select>
             <select name="ap" style="font-weight: bold">
                 <option>Category</option>
             </select>

@@ -1,5 +1,7 @@
 package com.codegym.case_study.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 
 @Entity
@@ -34,5 +36,6 @@ public class AppRole {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
 
 }

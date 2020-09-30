@@ -12,4 +12,5 @@ public interface ServiceService {
     void save(Servicee service);
     void deleteById(Long id);
     List<Servicee> findAll();
+    Page<Servicee> findAllByNameContainingAndStatusTrue(String search, Pageable pageable);
 }

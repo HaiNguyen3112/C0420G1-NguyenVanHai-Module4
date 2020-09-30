@@ -1,5 +1,6 @@
 package com.codegym.case_study.service.Impl;
 
+import com.codegym.case_study.model.Contract;
 import com.codegym.case_study.model.ContractDetail;
 import com.codegym.case_study.reposiroty.ContractDetailRepository;
 import com.codegym.case_study.reposiroty.ContractRepository;
@@ -21,5 +22,10 @@ public class ContractDetailServiceImpl implements ContractDetailService {
     @Override
     public void save(ContractDetail contractDetail) {
         contractDetailRepository.save(contractDetail);
+    }
+
+    @Override
+    public List<ContractDetail> findAllByContract(Contract contract) {
+        return contractDetailRepository.findAllByContract(contract);
     }
 }

@@ -1,6 +1,7 @@
 package com.codegym.case_study.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
@@ -12,8 +13,11 @@ public class Servicee {
 
 
     private String name;
+    @Min(1)
     private int area;
+    @Min(1)
     private double cost;
+    @Min(1)
     private int max_people;
 
     @ManyToOne
@@ -31,13 +35,25 @@ public class Servicee {
     private String descriptionOtherConvenience;
 
     @Column(name = "pool_area")
+    @Min(1)
     private double poolArea;
 
     @Column(name = "number_of_floor")
+    @Min(1)
     private int numberOfFloors;
 
     @OneToMany
     private List<Contract> contractList;
+
+    private boolean status = true;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
